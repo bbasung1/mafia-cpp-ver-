@@ -2,6 +2,9 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vector>
+#include <algorithm>
+#include <iostream>
 
 int main(void)
 {
@@ -9,12 +12,13 @@ int main(void)
     int i=0;
     printf("인원 수를 입력하세요");
     scanf("%d",&a);
-    char b[a]={};
+    std::vector<int> b{};
+    std::vector<int> k{};
 
 
     for(int i=0;i<a;i++)
     {
-         b[i]=i+1;
+         b.push_back(i+1);
     }
     srand(time(NULL));
     int c=(rand()%a)+1;
@@ -30,23 +34,35 @@ int main(void)
         }
         else
         {
-            memmove(b+d,b+d+1,strlen(b)-d);
-            printf(b);
-            printf("틀렷습니다.마피아가 한명 죽이려 시도합니다...");
+            b.erase(std::remove(b.begin(),b.end(),d));
+            k.push_back(d);
+            printf("틀렷습니다.마피아가 한명 죽이려 시도합니다...\n");
             srand(time(NULL));
             int e=(rand()%a)+1;
+            printf("%d",e);
             if(e==c)
             {
-                printf("마피아 살인 실패!");
+                printf("마피아 살인 실패!\n");
+                std::cout << "죽은자" << '\n';
+                for(int i=0;i<k.size();i++)
+                {
+                    std::cout<<k[i]<<" ";
+                }
                 continue;
             }
             else
             {
-                memmove(b+e,b+e+1,strlen(b)-e);
-                printf(b);
-                printf("마피아가 한명을 죽였습니다...");
+                b.erase(std::remove(b.begin(),b.end(),e));
+                k.push_back(e);
+                printf("마피아가 한명을 죽였습니다...\n");
+                std::cout << "죽은자" << '\n';
+                for(int i=0;i<k.size();i++)
+                {
+                    std::cout<<k[i]<<" ";
+                }
+                
             }
-            if(strlen(b)==1)
+            if(b.size()==1)
             {
                 printf("마피아 승리...");
             }
