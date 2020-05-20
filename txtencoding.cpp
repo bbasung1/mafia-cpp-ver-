@@ -39,32 +39,36 @@ int main(void)
             printf("틀렷습니다.마피아가 한명 죽이려 시도합니다...\n");
             srand(time(NULL));
             int e=(rand()%a)+1;
-            printf("%d",e);
-            if(e==c)
+            auto t = find(b.begin(), b.end(), e);
+            if(t != b.end()) 
             {
-                printf("마피아 살인 실패!\n");
-                std::cout << "죽은자" << '\n';
-                for(int i=0;i<k.size();i++)
+                printf("%d",e);
+                if(e==c)
                 {
-                    std::cout<<k[i]<<" ";
+                    printf("마피아 살인 실패!\n");
+                    std::cout << "죽은자" << '\n';
+                    for(int i=0;i<k.size();i++)
+                    {
+                        std::cout<<k[i]<<" ";
+                    }
+                    continue;
                 }
-                continue;
-            }
-            else
-            {
-                b.erase(std::remove(b.begin(),b.end(),e));
-                k.push_back(e);
-                printf("마피아가 한명을 죽였습니다...\n");
-                std::cout << "죽은자" << '\n';
-                for(int i=0;i<k.size();i++)
+                else
                 {
-                    std::cout<<k[i]<<" ";
+                    b.erase(std::remove(b.begin(),b.end(),e));
+                    k.push_back(e);
+                    printf("마피아가 한명을 죽였습니다...\n");
+                    std::cout << "죽은자" << '\n';
+                    for(int i=0;i<k.size();i++)
+                    {
+                        std::cout<<k[i]<<" ";
+                    }
+                    
                 }
-                
-            }
-            if(b.size()==1)
-            {
-                printf("마피아 승리...");
+                if(b.size()==1)
+                {
+                    printf("마피아 승리...");
+                }
             }
 
         }
